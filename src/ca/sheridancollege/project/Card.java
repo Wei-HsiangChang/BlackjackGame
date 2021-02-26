@@ -11,6 +11,7 @@ package ca.sheridancollege.project;
  * @author Furkan Gonul
  * @author WeiHsiang Chang
  * @author dancye
+ * @author Elisha Nesci Feb 2021
  */
 public abstract class Card {
     //default modifier for child classes
