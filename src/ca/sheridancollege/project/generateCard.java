@@ -5,6 +5,9 @@
  */
 package ca.sheridancollege.project;
 
+import ca.sheridancollege.project.Card.Suit;
+import ca.sheridancollege.project.Card.Value;
+
 
 
 
