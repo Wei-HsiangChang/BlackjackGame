@@ -12,7 +12,7 @@ package ca.sheridancollege.project;
  * @author Paul Bonenfant Jan 2020
  * @author Elisha Nesci Feb 2021
  * @author Omama EizEddin
- * 
+ */ 
 public abstract class Player {
 
     private String name; //the unique name for this player
