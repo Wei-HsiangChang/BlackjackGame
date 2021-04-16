@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ca.sheridancollege.project;
+package ca.sheridancollege.project.model;
 
 /**
  *
@@ -19,7 +19,7 @@ public class BlackjackCards extends Card{
     
     public String toString()
     {
-        return"";
+        return"BlackjackCards";
     }        
     
 }

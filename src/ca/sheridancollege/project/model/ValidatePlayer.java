@@ -4,7 +4,7 @@
  * and open the template in the editor.
  * @author Wei-Hsiang Chang
  */
-package ca.sheridancollege.project;
+package ca.sheridancollege.project.model;
 
 /**
  * @author Wei-Hsiang Chang 

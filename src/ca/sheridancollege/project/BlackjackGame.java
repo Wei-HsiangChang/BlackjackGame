@@ -5,21 +5,17 @@
  */
 package ca.sheridancollege.project;
 
+import ca.sheridancollege.project.view.CardUI;
+
 /**
  *
- * @author Wei-Hsiang Chang
+ * @author Michael
  */
-public class Playgame extends Game{
-    @Override
-    public void play()
-    {
-    
+public class BlackjackGame {
+    public static void main(String[] args){
+    CardUI Initialhand = new CardUI();
+    Initialhand .initialCardsForPlayer();
     }
     
-    @Override
-    public void declareWinner()
-    {
-    
-    }        
     
 }

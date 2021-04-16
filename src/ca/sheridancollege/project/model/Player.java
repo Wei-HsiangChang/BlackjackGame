@@ -3,7 +3,7 @@
  * Students can modify and extend to implement their game.
  * Add your name as an author and the date!
  */
-package ca.sheridancollege.project;
+package ca.sheridancollege.project.model;
 
 /**
  * A class that models each Player in the game. Players have an identifier, which should be unique.
@@ -47,5 +47,7 @@ public abstract class Player {
      * with logic to play your game.
      */
     public abstract void play();
+    
+    
 
 }
