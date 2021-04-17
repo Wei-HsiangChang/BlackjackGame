@@ -5,6 +5,8 @@
  */
 package ca.sheridancollege.project.model;
 
+import ca.sheridancollege.project.model.Card.Suit;
+import ca.sheridancollege.project.model.Card.Value;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,21 +22,41 @@ import java.util.Collections;
 public class GroupOfCards {
 
     //The group of cards, stored in an ArrayList
-    private ArrayList<Card> cards;
+    private static ArrayList<Card> cards;
     private int size;//the size of the grouping
+    Value[] cardValues = Value.values();
+    Suit[] cardSuits = Suit.values();
 
     public GroupOfCards(int size) {
         this.size = size;
+        
     }
-
+    
+    //initial 52 Group of Cards
+    public GroupOfCards() {
+        cards = new ArrayList();
+        for (int i = 0; i < cardSuits.length; i++) {
+            for (int j = 0; j < cardValues.length; j++) {
+                Card card = new BlackjackCards(cardValues[j], cardSuits[i]);
+                cards.add(card);
+            }
+        }
+        shuffle();
+    }
+    
     /**
      * A method that will get the group of cards as an ArrayList
      *
      * @return the group of cards.
      */
-    public ArrayList<Card> getCards() {
+    public static ArrayList<Card> getCards() {
         return cards;
     }
+
+    public void setCards(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
+    
 
     public void shuffle() {
         Collections.shuffle(cards);

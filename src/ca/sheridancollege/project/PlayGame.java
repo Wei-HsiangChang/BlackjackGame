@@ -11,11 +11,12 @@ import ca.sheridancollege.project.view.CardUI;
  *
  * @author Michael
  */
-public class BlackjackGame {
+public class PlayGame {
     public static void main(String[] args){
-    CardUI Initialhand = new CardUI();
-    Initialhand .initialCardsForPlayer();
+    CardUI deal = new CardUI();
+    deal.initialCardsForPlayer();
+    deal.initialCardsForDealer();
+    deal.hitorStandFromUser();
     }
-    
-    
+      
 }

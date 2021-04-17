@@ -5,10 +5,16 @@
  */
 package ca.sheridancollege.project.view;
 
+import ca.sheridancollege.project.model.BlackjackGame;
 import ca.sheridancollege.project.model.Card;
 import ca.sheridancollege.project.model.Card.Suit;
 import ca.sheridancollege.project.model.Card.Value;
+import ca.sheridancollege.project.model.Game;
+import ca.sheridancollege.project.model.GroupOfCards;
+import ca.sheridancollege.project.model.Player;
+import ca.sheridancollege.project.model.ValidatePlayer;
 import ca.sheridancollege.project.model.generateCard;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,38 +22,77 @@ import java.util.Scanner;
  * @author Michael
  */
 public class CardUI {
-    Scanner input;
+    GroupOfCards groupCards = new GroupOfCards();
+    Scanner input = new Scanner(System.in);;
+    Value[] cardValues = Value.values();
+    Suit[] cardSuits = Suit.values();
     
-    public CardUI() {
-        input = new Scanner(System.in);
-    }
     
     /**
      * initial get two hand cards
      */
     public void initialCardsForPlayer(){
         
-        Value[] cardValues = Value.values();
-        Suit[] cardSuits = Suit.values();
-
-        Card[] handplayer = generateCard.dispute(2, cardValues, cardSuits);
-        Card[] handdealer = generateCard.dispute(2, cardValues, cardSuits);
-
-        System.out.println("Here are the cards for the player in the desk");
-        for (Card card : handplayer) {
-            System.out.printf("%s of %s\n", card.getValue(), card.getSuit());
+        Card[] handPlayer = generateCard.dispute(2);
+        
+        Game blackjackGame = new BlackjackGame("Blackjack");
+           
+        System.out.println("Enter your name");
+        String playerName = input.nextLine();
+        
+        if(ValidatePlayer.ValidateName(playerName))
+        {    
+            Player player = new ValidatePlayer(playerName);
+            //Add to playerlist if player is validate, otherwise not added. 
+            ValidatePlayer.addPlayer(player);
+            blackjackGame.setPlayers(ValidatePlayer.playerlist);
         }
-        System.out.println("Here are the cards for the dealer in the desk");
-        for(Card card : handdealer) {
-            System.out.printf("%s of %s\n", card.getValue(), card.getSuit());
+        else
+            System.out.println("The name is invalid, you can't join the game");
+        
+        ArrayList<Player> players = blackjackGame.getPlayers();
+        
+        for(Player p: players)
+        {    
+            System.out.println("Here are the cards for "+p.getName()+" in the desk");
+            for (Card card : handPlayer) {
+                System.out.printf("%s of %s\n", card.getValue(), card.getSuit());
+            }
         }
         
-    
+        
+         
     }
     
-//    public Object hitorStandFromUser(){
-//    
-//    
-//    }
+    public void initialCardsForDealer(){
+        
+        Card[] handDealer = generateCard.dispute(2);
+        Card opencardDealer = handDealer[0];
+        System.out.println("Here is one card showing, and the other one folded for the dealer in the desk");   
+        System.out.printf("%s of %s\n", opencardDealer.getValue(), opencardDealer.getSuit());
+        
+    }
+    
+    public void hitorStandFromUser(){
+        int hitorstand =3 ;
+        while(!(hitorstand==1 | hitorstand==2))
+        {    
+            System.out.println("Enter 1 for hit and 2 for stand for this round.");
+            hitorstand = input.nextInt();
+            while(hitorstand == 1)
+            {
+                Card[] addcard = generateCard.dispute(1);
+                System.out.println("Here is your adding card");
+                System.out.printf("%s of %s\n", addcard[0].getValue(), addcard[0].getSuit()); 
+                System.out.println("Enter 1 for hit and 2 for stand for this round.");
+                hitorstand = input.nextInt();
+                
+            }    
+            if(hitorstand == 2)
+            {
+                System.out.println("You choose stand for this round");           
+            }
+        }
+    }
     
 }

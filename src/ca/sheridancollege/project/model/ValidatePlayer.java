@@ -6,28 +6,52 @@
  */
 package ca.sheridancollege.project.model;
 
+import java.util.ArrayList;
+
 /**
  * @author Wei-Hsiang Chang 
  */
-public class ValidatePlayer {
+public class ValidatePlayer extends Player{
     
     static boolean isValidPlayer =true;
+    public static ArrayList<Player> playerlist = new ArrayList();
     
     /**
      * @Examine whether the name of the player repeated to set valid or not.  
      */
-    public static boolean ValidateName(String playername, String[] playerlist)
+    public static boolean ValidateName(String playername)
     {
-        for(int i=0; i<playerlist.length; i++)
+        if(!playerlist.isEmpty())
+        for(Player player : playerlist)
         {
-            if(playerlist[i] == playername)
-            {    
+            if(player.getName() == playername)
+            {   
                 isValidPlayer = false;
                 break;
             }               
         }
         return isValidPlayer;
     } 
+
+    public ValidatePlayer(String name) {
+        super(name);
+           
+    }
+    
+    public static ArrayList<Player> addPlayer(Player validPlayer)
+    {        
+    if(ValidateName(validPlayer.getName()))
+        playerlist.add(validPlayer);
+    return playerlist;
+    }
+    
+    
+    @Override
+    public void play()
+    {
+    
+    } 
+    
     
    
     
