@@ -9,9 +9,9 @@ package ca.sheridancollege.project.model;
  *
  * @author Wei-Hsiang Chang
  */
-public class BlackjackCards extends Card{
+public class BlackjackCard extends Card{
 
-    public BlackjackCards(Value value, Suit suit) {
+    public BlackjackCard(Value value, Suit suit) {
         super(value, suit);
     }
     

@@ -37,7 +37,7 @@ public class GroupOfCards {
         cards = new ArrayList();
         for (int i = 0; i < cardSuits.length; i++) {
             for (int j = 0; j < cardValues.length; j++) {
-                Card card = new BlackjackCards(cardValues[j], cardSuits[i]);
+                Card card = new BlackjackCard(cardValues[j], cardSuits[i]);
                 cards.add(card);
             }
         }

@@ -26,8 +26,28 @@ public class BlackjackGame extends Game{
     }        
             
     @Override
-    public void declareWinner() 
-    {
+    public void declareWinner(int totalPlayer, int totalDealer) 
+    {    
+        
+        if(totalPlayer > 21) {
+            System.out.println("You are over 21, Dealer won");
+            
+        } 
+        else if(totalPlayer == 21) {
+            System.out.println("You hit the BLACKJACK!!!!");
+            
+        } 
+        
+        else {
+        
+            if(totalPlayer > totalDealer) {
+                System.out.println("You won");
+            } 
+            else {
+                System.out.println("Dealer won");
+
+            }
+        }
     
     }        
     

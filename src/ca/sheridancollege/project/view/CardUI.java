@@ -28,6 +28,7 @@ public class CardUI {
     Suit[] cardSuits = Suit.values();
     Card[] handDealer ;
     Card[] handPlayer ;
+    Game blackjackGame;
     int[] playerPower = new int[2];
     //int[] dealerPower = new int[2];
     /**
@@ -37,7 +38,9 @@ public class CardUI {
         
         Card[] handPlayer = generateCard.dispute(2);
         
-        Game blackjackGame = new BlackjackGame("Blackjack");
+        blackjackGame = new BlackjackGame("Blackjack World");
+        
+        System.out.println("Welcome to "+blackjackGame.getName());
            
         System.out.println("Enter your name");
         String playerName = input.nextLine();
@@ -82,10 +85,10 @@ public class CardUI {
     
     public void hitorStandFromUser(){
         int hitorstand = 3;
-       int totalPlayer = playerPower[0] + playerPower[1];
-       //int totalPlayer = handPlayer[0].getValue().getPower() + handPlayer[1].getValue().getPower();
-       int totalDealer = handDealer[0].getValue().getPower() + handDealer[1].getValue().getPower();
-       while(!(hitorstand==1 | hitorstand==2))
+        int totalPlayer = playerPower[0] + playerPower[1];
+        //int totalPlayer = handPlayer[0].getValue().getPower() + handPlayer[1].getValue().getPower();
+        int totalDealer = handDealer[0].getValue().getPower() + handDealer[1].getValue().getPower();
+        while(!(hitorstand==1 | hitorstand==2))
         {    
             System.out.println("Enter 1 for hit and 2 for stand for this round.");
             hitorstand = input.nextInt();
@@ -96,17 +99,15 @@ public class CardUI {
                 System.out.printf("%s of %s\n", addcard[0].getValue(), addcard[0].getSuit()); 
                 totalPlayer += addcard[0].getValue().getPower();
                 //System.out.println(totalPlayer);
-                if(totalPlayer > 21) {
-                    System.out.println("Dealer won");
+                if(totalPlayer > 21 | totalPlayer == 21) {
+                    blackjackGame.declareWinner(totalPlayer, totalDealer);
                     break;
-                } 
-                if(totalPlayer == 21) {
-                    System.out.println("You hit the BLACKJACK!!!!");
-                    break;
-                } else {
-                 
-                 System.out.println("Enter 1 for hit and 2 for stand for this round.");
-                 hitorstand = input.nextInt();
+                }
+                else 
+                {
+                    System.out.println("Enter 1 for hit and 2 for stand for this round.");
+                    hitorstand = input.nextInt();
+                                   
                 }
                 
              }    
@@ -114,16 +115,11 @@ public class CardUI {
             {   
                 
                 System.out.println("You choose stand for this round");    
-                System.out.println("Here is the dealer second card");   
-                System.out.printf("%s of %s\n", handDealer[1].getValue(), handDealer[1].getSuit());
+                System.out.println("Here is the dealer second card");                 
+                System.out.printf("%s of %s\n", handDealer[1].getValue(), handDealer[1].getSuit());   
                 System.out.println("Dealer hand in total is: " + totalDealer);
                 System.out.println("Your hand in total is: " + totalPlayer);
-                if(totalPlayer > totalDealer) {
-                    System.out.println("You won");
-                } else {
-                    System.out.println("Dealer won");
-                        
-                }
+                blackjackGame.declareWinner(totalPlayer, totalDealer);
                         
             }
         }
