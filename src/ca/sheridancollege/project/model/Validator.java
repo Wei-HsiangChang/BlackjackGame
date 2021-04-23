@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * @author Wei-Hsiang Chang 
  */
-public class ValidatePlayer extends Player{
+public class Validator {
     
     static boolean isValidPlayer =true;
     public static ArrayList<Player> playerlist = new ArrayList();
@@ -33,10 +33,6 @@ public class ValidatePlayer extends Player{
         return isValidPlayer;
     } 
 
-    public ValidatePlayer(String name) {
-        super(name);
-           
-    }
     
     public static ArrayList<Player> addPlayer(Player validPlayer)
     {        
@@ -46,11 +42,7 @@ public class ValidatePlayer extends Player{
     }
     
     
-    @Override
-    public void play()
-    {
     
-    } 
     
     
    

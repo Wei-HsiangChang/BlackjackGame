@@ -6,11 +6,14 @@
 package ca.sheridancollege.project.model;
 
 /**
- *
- * @author Wei-Hsiang Chang
+ * Follow Liskov Substitution principle as a reasonable substitute for superclass
+ * @author Wei-Hsiang Chang 
  */
-public class BlackjackCard extends Card{
 
+
+public class BlackjackCard extends Card{
+    
+    // Use arg constructor to call superclas data field, reduce repeat method and data promotes DRY principle
     public BlackjackCard(Value value, Suit suit) {
         super(value, suit);
     }

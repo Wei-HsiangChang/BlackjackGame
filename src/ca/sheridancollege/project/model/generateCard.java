@@ -14,7 +14,7 @@ import java.util.Random;
 
 
 /**
- *
+ * // follow single responsibility principle, focus only one thing.
  * @author Wei-Hsiang Chang
  */
 public class generateCard {
@@ -31,15 +31,10 @@ public class generateCard {
         for(int i=0;i<handcard.length;i++)
         {
             int j=0;
-            ArrayList<Card> deckCards = GroupOfCards.getCards();  
-//            Card.Value value = cardValues[random.nextInt(cardValues.length)];
-//            Card.Suit suit = cardSuits[random.nextInt(cardSuits.length)];
-//
-//            BlackjackCards card = new BlackjackCards(value, suit);
-//            handcard[i] = card;
-              
-              handcard[i] = deckCards.get(j);
-              deckCards.remove(j);
+            ArrayList<Card> deckCards = GroupOfCards.getCards();              
+            handcard[i] = deckCards.get(j);
+            //remove 1 card when dispute the card
+            deckCards.remove(j);
         }
         return handcard;
         

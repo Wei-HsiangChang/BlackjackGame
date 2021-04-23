@@ -5,26 +5,49 @@
  */
 package ca.sheridancollege.project.model;
 
+import java.util.ArrayList;
+
 /**
- *
- * @author Michael
+ * Follow Liskov Substitution principle as a reasonable substitute for superclass
+ * @author Wei-Hsiang Chang
  */
 public class BlackjackGame extends Game{
-    private String gamename; 
+    private static String gamename; 
+    private static Game instance = null;
+    
+    /**
+     * Use Singleton pattern to create only one instance at a time
+     */
+    public static Game getInstance(){
+        
+            if(instance == null){
+                instance = new BlackjackGame("Blackjack World");
+            }
+            return instance;
+        }
+    
 
-    public BlackjackGame(String gamename) {
+    private BlackjackGame(String gamename) {
         super(gamename);
         this.gamename = gamename;
     }
     
     
-    
+    /**
+     * When players are validate, and add to playerlist, game start playing
+     */
     @Override
     public void play()
-    {
-    
+    {  
+        setPlayers(Validator.playerlist);
+        //invoke Player.play method
+        for(Player p : getPlayers())
+            p.play();
     }        
-            
+    
+    /**
+     * Terminate the Game, Use the method to display the winner, and end the game.
+     */
     @Override
     public void declareWinner(int totalPlayer, int totalDealer) 
     {    

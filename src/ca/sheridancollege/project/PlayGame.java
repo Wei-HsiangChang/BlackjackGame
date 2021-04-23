@@ -5,7 +5,11 @@
  */
 package ca.sheridancollege.project;
 
+import ca.sheridancollege.project.model.BlackjackGame;
+import ca.sheridancollege.project.model.Game;
+import ca.sheridancollege.project.model.Player;
 import ca.sheridancollege.project.view.CardUI;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,6 +18,8 @@ import ca.sheridancollege.project.view.CardUI;
 public class PlayGame {
     public static void main(String[] args){
     CardUI deal = new CardUI();
+
+    deal.initialPlayer();
     deal.initialCardsForPlayer();
     deal.initialCardsForDealer();
     deal.hitorStandFromUser();

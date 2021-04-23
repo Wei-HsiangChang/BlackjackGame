@@ -32,7 +32,9 @@ public class GroupOfCards {
         
     }
     
-    //initial 52 Group of Cards
+    /**
+     * initial 52 Group of poker Cards
+     */
     public GroupOfCards() {
         cards = new ArrayList();
         for (int i = 0; i < cardSuits.length; i++) {

@@ -12,8 +12,9 @@ import ca.sheridancollege.project.model.Card.Value;
 import ca.sheridancollege.project.model.Game;
 import ca.sheridancollege.project.model.GroupOfCards;
 import ca.sheridancollege.project.model.Player;
-import ca.sheridancollege.project.model.ValidatePlayer;
+import ca.sheridancollege.project.model.Validator;
 import ca.sheridancollege.project.model.generateCard;
+import ca.sheridancollege.project.model.validPlayer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,51 +28,53 @@ public class CardUI {
     Value[] cardValues = Value.values();
     Suit[] cardSuits = Suit.values();
     Card[] handDealer ;
-    Card[] handPlayer ;
+    validPlayer player;
     Game blackjackGame;
-    int[] playerPower = new int[2];
+
     //int[] dealerPower = new int[2];
+    
+    /**
+     * interact with player by entering the name, and display the message if the name is invalid
+     */
+    public void initialPlayer(){
+        System.out.println("Enter your name");
+        String playerName = input.nextLine();
+        
+        if(Validator.ValidateName(playerName)){
+            player = new validPlayer(playerName);
+            //Add to playerlist if player is valid
+            Validator.addPlayer(player);
+        }
+        else
+            System.out.println("The name is repeated try other name to join the game!");         
+    }
+    
     /**
      * initial get two hand cards
      */
     public void initialCardsForPlayer(){
         
-        Card[] handPlayer = generateCard.dispute(2);
+        player.setHandPlayer(generateCard.dispute(2));
         
-        blackjackGame = new BlackjackGame("Blackjack World");
+        //Singleton, make sure BlackjackGame Object only create once
+        blackjackGame = BlackjackGame.getInstance();
         
         System.out.println("Welcome to "+blackjackGame.getName());
-           
-        System.out.println("Enter your name");
-        String playerName = input.nextLine();
-        
-        if(ValidatePlayer.ValidateName(playerName))
-        {    
-            Player player = new ValidatePlayer(playerName);
-            //Add to playerlist if player is validate, otherwise not added. 
-            ValidatePlayer.addPlayer(player);
-            blackjackGame.setPlayers(ValidatePlayer.playerlist);
-        }
-        else
-            System.out.println("The name is invalid, you can't join the game");
-        
-        ArrayList<Player> players = blackjackGame.getPlayers();
-        int i = 0;
-        for(Player p: players)
-        {    
-            System.out.println("Here is your cards "+p.getName() + " good luck");
-            for (Card card : handPlayer) {
-                System.out.printf("%s of %s\n", card.getValue(), card.getSuit());
-               // System.out.printf("%d", card.getValue().getPower());
-               
-               playerPower[i] = card.getValue().getPower();
-               i++;
-               
-            }
-        }
-        
-        
-         
+            
+            //set the playerlist to start playing the game
+            blackjackGame.play();
+            ArrayList<Player> players = blackjackGame.getPlayers();
+
+            for(Player p: players)
+            {    
+                System.out.println("Here is your cards, good luck");
+                for (Card card : player.getHandPlayer()) {
+                    System.out.printf("%s of %s\n", card.getValue(), card.getSuit());
+                    // System.out.printf("%d", card.getValue().getPower());
+
+                    player.totalPlayer += card.getValue().getPower();
+                }
+            }          
     }
     
     public void initialCardsForDealer(){
@@ -85,7 +88,7 @@ public class CardUI {
     
     public void hitorStandFromUser(){
         int hitorstand = 3;
-        int totalPlayer = playerPower[0] + playerPower[1];
+
         //int totalPlayer = handPlayer[0].getValue().getPower() + handPlayer[1].getValue().getPower();
         int totalDealer = handDealer[0].getValue().getPower() + handDealer[1].getValue().getPower();
         while(!(hitorstand==1 | hitorstand==2))
@@ -95,12 +98,16 @@ public class CardUI {
             while(hitorstand == 1)
             {
                 Card[] addcard = generateCard.dispute(1);
+                player.getHandPlayer().add(addcard[0]);
                 System.out.println("Here is your adding card");
                 System.out.printf("%s of %s\n", addcard[0].getValue(), addcard[0].getSuit()); 
-                totalPlayer += addcard[0].getValue().getPower();
+                player.totalPlayer += addcard[0].getValue().getPower();
                 //System.out.println(totalPlayer);
-                if(totalPlayer > 21 | totalPlayer == 21) {
-                    blackjackGame.declareWinner(totalPlayer, totalDealer);
+                if(player.totalPlayer > 21 | player.totalPlayer == 21) {
+                    System.out.println("Here is the dealer second card");                 
+                    System.out.printf("%s of %s\n", handDealer[1].getValue(), handDealer[1].getSuit());
+                    blackjackGame.declareWinner(player.totalPlayer, totalDealer); 
+                    
                     break;
                 }
                 else 
@@ -118,8 +125,8 @@ public class CardUI {
                 System.out.println("Here is the dealer second card");                 
                 System.out.printf("%s of %s\n", handDealer[1].getValue(), handDealer[1].getSuit());   
                 System.out.println("Dealer hand in total is: " + totalDealer);
-                System.out.println("Your hand in total is: " + totalPlayer);
-                blackjackGame.declareWinner(totalPlayer, totalDealer);
+                System.out.println("Your hand in total is: " + player.totalPlayer);
+                blackjackGame.declareWinner(player.totalPlayer, totalDealer);
                         
             }
         }
